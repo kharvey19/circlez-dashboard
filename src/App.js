@@ -13,6 +13,9 @@ function App() {
   const [showMenu, setShowMenu] = useState(false);
   const [showShadow, setShowShadow] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [register, setRegister] = useState(true);
+  const [login, setLogin] = useState(false);
+  const [main, setMain] = useState(false);
 
 
   const handleScroll = () => {
@@ -37,6 +40,31 @@ function App() {
     setWindowWidth(window.innerWidth);
   };
 
+  const openLogin = () => {
+    setLogin(true);
+  };
+
+  const closeLogin = () => {
+    setLogin(false);
+  };
+
+  const openRegister = () => {
+    setRegister(true);
+  };
+
+  const closeRegister = () => {
+    setRegister(false);
+  };
+
+  const openMain = () => {
+    setMain(true);
+  };
+
+  const closeMain = () => {
+    setMain(false);
+  };
+
+  
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -65,25 +93,64 @@ function App() {
 
   return (
     <div className="App" onClick={handleMenuClose}>
-      <header className={`navbar pl-10 text-black bg-white md:mr-10 fixed top-0 w-screen b ${showShadow ? 'opaque' : ''}`} style={{ borderBottom: '1px solid grey'}}>
-        <div className="flex justify-between items-center w-screen">
-          <div className="flex items-center">
-            <img src={logo} className="w-14 mr-2" alt="logo" />
-            <h1 className="text-lg md:text-3xl font-bold"> CIRCLEZ </h1>
-          </div>
-          <div>
-            <button className='mr-5'> Log Out</button>
-          </div>
-        </div>
-    </header>
+{!register && !login && (
+  <header className={`navbar pl-10 text-black bg-white md:mr-10 fixed top-0 w-screen b ${showShadow ? 'opaque' : ''}`} style={{ borderBottom: '1px solid grey'}}>
+    <div className="flex justify-between items-center w-screen">
+      <div className="flex items-center">
+        <img src={logo} className="w-14 mr-2" alt="logo" />
+        <h1 className="text-lg md:text-3xl font-bold"> CIRCLEZ </h1>
+      </div>
+      <div>
+        <button 
+          onClick={() => {
+            openLogin();
+            closeMain();
+            closeRegister();
+          }}
+          className='mr-5'
+        >
+          Log Out
+        </button>
+      </div>
+    </div>
+  </header>
+)}
 
-    <main className='mt-32'>
-        <div>
-        {/* <Element name="login" className="section">
-          <Register />
-        </Element> */}
+   
+        {register &&
+          <main className='mt-32'>
+          <Element name="register" className="section">
+            <Register openLogin={openLogin} closeRegister={closeRegister}/>
+          </Element>
+          </main>}
+      {login &&
+      
+        <main className='mt-32'>
+          <Element name="login" className="section">
+            <Login closeLogin={closeLogin} openMain={openMain}/>
+          </Element>
+          </main>
+        }
+      {main && 
+        <main className='mt-32'>
+          <Element name="messages" className="section">
+            <Messages />
+          </Element>
+          <Element name="verifyBlogUsers" className="section">
+            <VerifyBlogUsers />
+          </Element>
+          <Element name="manageBlogs" className="section">
+            <ManageBlogs />
+          </Element>
+          <Element name="premium" className="section">
+            <Premium />
+          </Element>
+        </main>
+        
+        }
 
-        <Element name="messages" className="section">
+
+        {/* <Element name="messages" className="section">
           <Messages />
         </Element>
         <Element name="verifyBlogUsers" className="section">
@@ -94,14 +161,13 @@ function App() {
         </Element>
         <Element name="premium" className="section">
           <Premium />
-        </Element>
+        </Element> */}
 
 
         </div>
    
         
-      </main>
-    </div>
+
   );
 }
 
