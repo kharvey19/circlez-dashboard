@@ -6,7 +6,8 @@ import Messages from './components/Messages';
 import Premium from './components/Premium';
 import VerifyBlogUsers from './components/VerifyBlogUsers';
 import logo from './logo.png';
-
+import Login from './components/Login.js';
+import Register from './components/Register';
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
@@ -64,17 +65,24 @@ function App() {
 
   return (
     <div className="App" onClick={handleMenuClose}>
-      <header className={`navbar pl-10 text-black md:mr-10 fixed top-0 w-screen b ${showShadow ? 'opaque' : ''}`} style={{ borderBottom: '1px solid grey'}}>
+      <header className={`navbar pl-10 text-black bg-white md:mr-10 fixed top-0 w-screen b ${showShadow ? 'opaque' : ''}`} style={{ borderBottom: '1px solid grey'}}>
         <div className="flex justify-between items-center w-screen">
           <div className="flex items-center">
             <img src={logo} className="w-14 mr-2" alt="logo" />
             <h1 className="text-lg md:text-3xl font-bold"> CIRCLEZ </h1>
+          </div>
+          <div>
+            <button className='mr-5'> Log Out</button>
           </div>
         </div>
     </header>
 
     <main className='mt-32'>
         <div>
+        {/* <Element name="login" className="section">
+          <Register />
+        </Element> */}
+
         <Element name="messages" className="section">
           <Messages />
         </Element>
