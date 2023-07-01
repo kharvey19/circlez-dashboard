@@ -41,7 +41,7 @@ const VerifyBlogUsers = () => {
         });
     }
   };
-  
+
   const denyUser = (user) => {
     const { email } = user;
 
@@ -53,7 +53,7 @@ const VerifyBlogUsers = () => {
     <div className="border-b pb-10">
       <div>
         <h1 className="text-left text-3xl font-bold ml-10 mt-10">Verify Blog Users</h1>
-
+        <h1 className="text-2xl font-bold my-4 mx-10">Requesting Access</h1>
         <div className="mt-5 mx-10">
           <table className="min-w-full bg-white border border-gray-300">
             <thead>
@@ -72,7 +72,7 @@ const VerifyBlogUsers = () => {
                     <td className="py-2 px-4 border-b">{index + 1}</td>
                     <td className="py-2 px-4 border-b">{user.firstName}</td>
                     <td className="py-2 px-4 border-b">{user.lastName}</td>
-                    <td className="py-2 px-4 border-b">{user.email}</td>
+                    <td className="py-2 px-4 border-b">{user.Email}</td>
                     <td className="py-2 px-4 border-b">
                       <button
                         className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 mr-2 rounded"
@@ -93,7 +93,7 @@ const VerifyBlogUsers = () => {
           </table>
         </div>
 
-        <h1 className="text-3xl font-bold my-4 mx-10">Verified Users:</h1>
+        <h1 className="text-2xl font-bold my-4 mx-10 mt-14">Verified Users</h1>
         {verifiedUsers ? (
           <div className="mt-5 mx-10">
             <table className="min-w-full bg-white border border-gray-300 ">

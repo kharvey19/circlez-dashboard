@@ -14,6 +14,8 @@ const Messages = () => {
         users.push(childSnapshot.val());
       });
 
+      console.log(users); // Add this console log statement to inspect the users data
+
       setUsers(users);
     });
   }, []);
