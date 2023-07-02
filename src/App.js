@@ -13,8 +13,7 @@ function App() {
   const [showMenu, setShowMenu] = useState(false);
   const [showShadow, setShowShadow] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [register, setRegister] = useState(true);
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(true);
   const [main, setMain] = useState(false);
 
 
@@ -48,13 +47,6 @@ function App() {
     setLogin(false);
   };
 
-  const openRegister = () => {
-    setRegister(true);
-  };
-
-  const closeRegister = () => {
-    setRegister(false);
-  };
 
   const openMain = () => {
     setMain(true);
@@ -93,7 +85,7 @@ function App() {
 
   return (
     <div className="App" onClick={handleMenuClose}>
-{!register && !login && (
+{!login && (
   <header className={`navbar pl-10 text-black bg-white md:mr-10 fixed top-0 w-screen b ${showShadow ? 'opaque' : ''}`} style={{ borderBottom: '1px solid grey'}}>
     <div className="flex justify-between items-center w-screen">
       <div className="flex items-center">
@@ -105,7 +97,6 @@ function App() {
           onClick={() => {
             openLogin();
             closeMain();
-            closeRegister();
           }}
           className='mr-5'
         >
@@ -117,12 +108,6 @@ function App() {
 )}
 
    
-        {register &&
-          <main className='mt-32'>
-          <Element name="register" className="section">
-            <Register openLogin={openLogin} closeRegister={closeRegister}/>
-          </Element>
-          </main>}
       {login &&
       
         <main className='mt-32'>
@@ -148,21 +133,6 @@ function App() {
         </main>
         
         }
-
-
-        {/* <Element name="messages" className="section">
-          <Messages />
-        </Element>
-        <Element name="verifyBlogUsers" className="section">
-          <VerifyBlogUsers />
-        </Element>
-        <Element name="manageBlogs" className="section">
-          <ManageBlogs />
-        </Element>
-        <Element name="premium" className="section">
-          <Premium />
-        </Element> */}
-
 
         </div>
    

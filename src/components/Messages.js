@@ -36,14 +36,21 @@ const Messages = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user, index) => (
+              {users.map((user, index) => {
+
+                if (user.Name) {
+                    return (
                 <tr key={index}>
                   <td className="py-2 px-4 border-b">{index + 1}</td>
                   <td className="py-2 px-4 border-b">{user.Name}</td>
                   <td className="py-2 px-4 border-b">{user.Email}</td>
                   <td className="py-2 px-4 border-b">{user.Message}</td>
                 </tr>
-              ))}
+                );
+                }
+                return null;
+                })
+                }
             </tbody>
           </table>
         </div>

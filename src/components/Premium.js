@@ -36,7 +36,10 @@ const Premium = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user, index) => (
+              {users.map((user, index) => {
+                if (user.firstName) {
+                  return (
+
                 <tr key={index}>
                   <td className="py-2 px-4 border-b">{index + 1}</td>
                   <td className="py-2 px-4 border-b">{user.firstName}</td>
@@ -45,7 +48,11 @@ const Premium = () => {
                   <td className="py-2 px-4 border-b">{user.Role}</td>
                   <td className="py-2 px-4 border-b">{user.OtherRole}</td>
                 </tr>
-              ))}
+              );
+                }
+                return null;
+                })
+                }
             </tbody>
           </table>
         </div>
