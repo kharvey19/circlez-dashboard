@@ -9,6 +9,14 @@ import logo from './logo.png';
 import Login from './components/Login.js';
 import Register from './components/Register';
 
+// Do this starting tuesday 
+// make deleted tables for all categories so nothing is lost forever 
+// create a deleted section 
+// create settings page, manually add email / password to login table 
+// this is where users can see deleted tables and restore 
+// also need to see how to handle scrolling once the tables reach a certain height
+
+
 function App() {
   const [showMenu, setShowMenu] = useState(false);
   const [showShadow, setShowShadow] = useState(false);
