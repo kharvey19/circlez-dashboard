@@ -56,6 +56,7 @@ const VerifyBlogUsers = () => {
             firstName,
             lastName,
             Email,
+            Password
           }),
         };
 
