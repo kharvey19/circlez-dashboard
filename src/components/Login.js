@@ -23,8 +23,8 @@ const Login = (props) => {
   return (
     <div>
   
-      <div className="bg-white h-screen flex justify-center items-center" style={{marginTop: -150}}>
-        <div className=" lg:w-1/3 border-zinc-400 border rounded-md shadow-md">
+      <div className="bg-zinc-900 h-screen flex justify-center items-center" style={{marginTop: -150}}>
+        <div className=" lg:w-1/3 bg-white border-zinc-400 border rounded-md shadow-md">
           {/* <div className="flex flex-row justify-center">
             <img src={logo} alt="logo" className='mt-5' style={{ width: "100px", height: "100px", borderRadius: "50%" }} />
           </div> */}
