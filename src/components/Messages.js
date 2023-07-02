@@ -1,58 +1,187 @@
 import React, { useEffect, useState } from 'react';
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue, remove, get } from 'firebase/database';
 import { db } from './config.js';
 
 const Messages = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState({});
+  const [archived, setArchived] = useState({});
+  const [showArchived, setShowArchived] = useState(false);
+  const [selectedTab, setSelectedTab] = useState('register');
 
   useEffect(() => {
     const dbRef = ref(db, 'Contact');
+    const archiveRef = ref(db, 'Archived');
 
     onValue(dbRef, (snapshot) => {
-      const users = [];
+      const usersData = {};
       snapshot.forEach((childSnapshot) => {
-        users.push(childSnapshot.val());
+        usersData[childSnapshot.key] = childSnapshot.val();
       });
 
-      console.log(users); // Add this console log statement to inspect the users data
+      console.log(usersData); // Add this console log statement to inspect the users data
 
-      setUsers(users);
+      setUsers(usersData);
+    });
+
+    onValue(archiveRef, (snapshot) => {
+      const archivedData = {};
+      snapshot.forEach((childSnapshot) => {
+        archivedData[childSnapshot.key] = childSnapshot.val();
+      });
+
+      console.log(archivedData); // Add this console log statement to inspect the users data
+
+      setArchived(archivedData);
     });
   }, []);
+
+  const archive = async (user, userId) => {
+    const { Name, Email, Message } = user;
+
+    if (Email) {
+      try {
+        // Fetch the user's email from 'Blog-Register'
+        const registerRef = ref(db, `Contact/${userId}`);
+        const registerSnapshot = await get(registerRef);
+        const registerData = registerSnapshot.val();
+
+        console.log('registerData:', registerData);
+
+        if (!registerData) {
+          console.error('User data not found in Contact.');
+          return;
+        }
+
+        console.log('email:', Email);
+
+        // Add the user to 'Blog-Verified'
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            Name,
+            Email,
+            Message,
+          }),
+        };
+
+        const res = fetch(
+          'https://circlez-8e1cb-default-rtdb.firebaseio.com/Archived.json',
+          options
+        );
+
+        // Remove the user from 'Blog-Register'
+        await remove(registerRef);
+
+        console.log('User verified successfully.');
+      } catch (error) {
+        console.error('Failed to verify user:', error);
+      }
+    }
+  };
 
   return (
     <div className="border-b pb-10">
       <div>
-        <h1 className="text-left text-3xl font-bold ml-10 mt-10">Messages</h1>
-
         <div className="mt-5 mx-10">
-          <table className="min-w-full bg-white border border-gray-200">
-            <thead>
-              <tr>
-                <th className="py-2 px-4 border-b">No.</th>
-                <th className="py-2 px-4 border-b">Name</th>
-                <th className="py-2 px-4 border-b">Email</th>
-                <th className="py-2 px-4 border-b">Message</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user, index) => {
-
-                if (user.Name) {
-                    return (
-                <tr key={index}>
-                  <td className="py-2 px-4 border-b">{index + 1}</td>
-                  <td className="py-2 px-4 border-b">{user.Name}</td>
-                  <td className="py-2 px-4 border-b">{user.Email}</td>
-                  <td className="py-2 px-4 border-b">{user.Message}</td>
+          <div className="flex justify-between items-center mb-4">
+            <h1 className="text-2xl font-bold">Messages</h1>
+            <div className="flex">
+              <button
+                className={`mr-4 font-bold text-lg ${
+                  selectedTab === 'register' ? 'text-blue-500' : 'text-gray-500'
+                }`}
+                onClick={() => setSelectedTab('register')}
+              >
+                Current
+              </button>
+              <button
+                className={`text-lg font-bold ${
+                  selectedTab === 'verified' ? 'text-blue-500' : 'text-gray-500'
+                }`}
+                onClick={() => setSelectedTab('verified')}
+              >
+                Archived
+              </button>
+            </div>
+          </div>
+          {selectedTab === 'register' && (
+            <table className="min-w-full bg-white border border-gray-200">
+              <thead>
+                <tr>
+                  <th className="py-2 px-4 border-b">No.</th>
+                  <th className="py-2 px-4 border-b">Name</th>
+                  <th className="py-2 px-4 border-b">Email</th>
+                  <th className="py-2 px-4 border-b">Message</th>
+                  <th className="py-2 px-4 border-b">Actions</th>
                 </tr>
-                );
-                }
-                return null;
-                })
-                }
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {Object.entries(users).map(([userId, user], index) => {
+                  if (user.Name) {
+                    return (
+                      <tr key={userId}>
+                        <td className="py-2 px-4 border-b">{index + 1}</td>
+                        <td className="py-2 px-4 border-b">{user.Name}</td>
+                        <td className="py-2 px-4 border-b">{user.Email}</td>
+                        <td className="py-2 px-4 border-b">{user.Message}</td>
+                        <td className="py-2 px-4 border-b">
+                          <div className="flex justify-center">
+                            <button
+                              className="bg-zinc-500 hover:bg-zinc-400 text-white py-2 px-4 rounded"
+                              onClick={() => archive(user, userId)}
+                            >
+                              Archive
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  }
+                  return null;
+                })}
+              </tbody>
+            </table>
+          )}
+          {selectedTab === 'verified' && (
+            <table className="min-w-full bg-white border border-gray-300">
+              <thead>
+                <tr>
+                  <th className="py-2 px-4 border-b">No.</th>
+                  <th className="py-2 px-4 border-b">First Name</th>
+                  <th className="py-2 px-4 border-b">Last Name</th>
+                  <th className="py-2 px-4 border-b">Message</th>
+                  <th className="py-2 px-4 border-b">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(archived).map(([userId, user], index) => {
+                  if (user.Name) {
+                    return (
+                      <tr key={userId}>
+                        <td className="py-2 px-4 border-b">{index + 1}</td>
+                        <td className="py-2 px-4 border-b">{user.Name}</td>
+                        <td className="py-2 px-4 border-b">{user.Email}</td>
+                        <td className="py-2 px-4 border-b">{user.Message}</td>
+                        <td className="py-2 px-4 border-b">
+                          <div className="flex justify-center">
+                            <button
+                              className="bg-zinc-500 hover:bg-zinc-400 text-white py-2 px-4 rounded"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  }
+                  return null;
+                })}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>

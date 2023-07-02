@@ -1,18 +1,6 @@
-// const ManageBlogs = () => {
-//     return (
-//     <div style={{ borderBottom: '1px solid gray'}} className="pb-10">
-//         <div>
-//         <h1 className="text-left text-3xl font-bold ml-10 mt-10">Manage Blogs</h1>
-
-//         </div>
-//       </div>
-//     );
-//   };
-
-// export default ManageBlogs;
 
 import React, { useEffect, useState } from 'react';
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue, remove, set, get } from 'firebase/database';
 import { db } from './config.js';
 
 const ManageBlogs = () => {
@@ -22,19 +10,24 @@ const ManageBlogs = () => {
     const dbRef = ref(db, 'Blogs');
 
     onValue(dbRef, (snapshot) => {
-      const users = [];
+      const usersData = [];
       snapshot.forEach((childSnapshot) => {
-        users.push(childSnapshot.val());
+        usersData.push([childSnapshot.key, childSnapshot.val()]);
       });
 
-      setUsers(users);
+      setUsers(usersData);
     });
   }, []);
+
+  const denyUser = (userId) => {
+    console.log('userId:', userId);
+    remove(ref(db, `Blogs/${userId}`));
+  };
 
   return (
     <div className="border-b pb-10">
       <div>
-        <h1 className="text-left text-3xl font-bold ml-10 mt-10">Manage Blogs</h1>
+        <h1 className="text-left text-2xl font-bold ml-10 mt-10">Manage Blogs</h1>
 
         <div className="mt-5 mx-10">
           <table className="min-w-full bg-white border border-gray-200">
@@ -45,25 +38,33 @@ const ManageBlogs = () => {
                 <th className="py-2 px-4 border-b">Title</th>
                 <th className="py-2 px-4 border-b">Description</th>
                 <th className="py-2 px-4 border-b">Message</th>
+                <th className="py-2 px-4 border-b">Actions</th>
+
               </tr>
             </thead>
             <tbody>
-              {users.map((user, index) => {
-
-                if (user.Title) {
-                    return (
-                <tr key={index}>
-                  <td className="py-2 px-4 border-b">{index + 1}</td>
-                  {/* <td className="py-2 px-4 border-b">{user.Author}</td> */}
-                  <td className="py-2 px-4 border-b">{user.Title}</td>
-                  <td className="py-2 px-4 border-b">{user.Description}</td>
-                  <td className="py-2 px-4 border-b">{user.Message}</td>
-                </tr>
-              );
-                }
-                return null;
-                })
-                }
+            {users.map(([userId, user], index) => {
+              if (user.Title) {
+                return (
+                  <tr key={userId}>
+                    <td className="py-2 px-4 border-b">{index + 1}</td>
+                    {/* <td className="py-2 px-4 border-b">{user.Author}</td> */}
+                    <td className="py-2 px-4 border-b">{user.Title}</td>
+                    <td className="py-2 px-4 border-b">{user.Description}</td>
+                    <td className="py-2 px-4 border-b">{user.Message}</td>
+                    <td className="py-2 px-4 border-b">
+                      <button
+                        className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+                        onClick={() => denyUser(userId)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              }
+              return null;
+            })}
             </tbody>
           </table>
         </div>

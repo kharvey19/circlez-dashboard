@@ -21,7 +21,7 @@ const Premium = () => {
   return (
     <div className="border-b pb-10">
       <div>
-        <h1 className="text-left text-3xl font-bold ml-10 mt-10">Premium</h1>
+        <h1 className="text-left text-2xl font-bold ml-10 mt-10">Premium</h1>
 
         <div className="mt-5 mx-10">
           <table className="min-w-full bg-white border border-gray-300">

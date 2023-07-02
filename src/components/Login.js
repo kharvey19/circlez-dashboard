@@ -57,7 +57,7 @@ const Login = (props) => {
           type="submit"
           name="submit"
           value="Submit"
-          className='mb-20 p-2 mt-4 pl-5 pr-5 bg-indigo-400 rounded-lg hover:text-white '
+          className='mb-20 p-2 mt-4 pl-5 pr-5 bg-indigo-400 rounded-lg hover:bg-indigo-500 font-bold text-black '
           onClick={() => loginUser(email, password)}
         >
           Submit

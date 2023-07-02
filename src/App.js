@@ -98,7 +98,7 @@ function App() {
             openLogin();
             closeMain();
           }}
-          className='mr-5'
+          className='mr-5 p-3 pl-5 pr-5 bg-indigo-400 rounded-md text-white font-bold text-sm hover:bg-indigo-500'
         >
           Log Out
         </button>
