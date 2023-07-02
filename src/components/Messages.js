@@ -130,7 +130,7 @@ const Messages = () => {
                         <td className="py-2 px-4 border-b">
                           <div className="flex justify-center">
                             <button
-                              className="bg-zinc-500 hover:bg-zinc-400 text-white py-2 px-4 rounded"
+                              className="bg-zinc-500 hover:bg-zinc-400 text-white py-2 px-4 rounded text-sm"
                               onClick={() => archive(user, userId)}
                             >
                               Archive
@@ -168,7 +168,7 @@ const Messages = () => {
                         <td className="py-2 px-4 border-b">
                           <div className="flex justify-center">
                             <button
-                              className="bg-zinc-500 hover:bg-zinc-400 text-white py-2 px-4 rounded"
+                              className="bg-zinc-500 hover:bg-zinc-400 text-white py-2 px-4 rounded text-sm"
                             >
                               Delete
                             </button>

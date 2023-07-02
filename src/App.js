@@ -101,6 +101,9 @@ function App() {
         <h1 className="text-lg md:text-3xl font-bold"> CIRCLEZ </h1>
       </div>
       <div>
+      <button className='mr-5 p-3 pl-5 pr-5 bg-blue-400 rounded-md text-white font-bold text-sm hover:bg-blue-500'>
+        Settings
+      </button>
         <button 
           onClick={() => {
             openLogin();

@@ -28,7 +28,7 @@ const VerifyBlogUsers = () => {
   }, []);
 
   const verifyUser = async (user, userId) => {
-    const { firstName, lastName, Email, Password } = user;
+    const { firstName, lastName, Email, Password, id } = user;
 
     if (Email) {
       try {
@@ -56,7 +56,8 @@ const VerifyBlogUsers = () => {
             firstName,
             lastName,
             Email,
-            Password
+            Password, 
+            id
           }),
         };
 
@@ -130,13 +131,13 @@ const VerifyBlogUsers = () => {
                           <td className="py-2 px-4 border-b">
                             <div className="flex justify-center">
                               <button
-                                className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 mr-2 rounded"
+                                className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 mr-2 rounded text-sm"
                                 onClick={() => verifyUser(user, userId)}
                               >
                                 Verify
                               </button>
                               <button
-                                className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+                                className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded text-sm"
                                 onClick={() => denyUser(userId)}
                               >
                                 Deny
@@ -175,7 +176,7 @@ const VerifyBlogUsers = () => {
                           <td className="py-2 px-4 border-b">
                             <div className="flex justify-center">
                               <button
-                                className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+                                className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded text-sm"
                                 onClick={() => deleteUser(userId)}
                               >
                                 Delete
