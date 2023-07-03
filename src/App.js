@@ -8,6 +8,7 @@ import VerifyBlogUsers from './components/VerifyBlogUsers';
 import logo from './logo.png';
 import Login from './components/Login.js';
 import Register from './components/Register';
+import Settings from './components/Settings';
 
 // Do this starting tuesday 
 // make deleted tables for all categories so nothing is lost forever 
@@ -22,6 +23,7 @@ function App() {
   const [showShadow, setShowShadow] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [login, setLogin] = useState(true);
+  const [settings, setSettings] = useState(false);
   const [main, setMain] = useState(false);
 
 
@@ -53,6 +55,14 @@ function App() {
 
   const closeLogin = () => {
     setLogin(false);
+  };
+
+  const openSettings = () => {
+    setSettings(true);
+  };
+
+  const closeSettings = () => {
+    setSettings(false);
   };
 
 
@@ -97,13 +107,23 @@ function App() {
   <header className={`navbar pl-10 text-black bg-white md:mr-10 fixed top-0 w-screen b ${showShadow ? 'opaque' : ''}`} style={{ borderBottom: '1px solid grey'}}>
     <div className="flex justify-between items-center w-screen">
       <div className="flex items-center">
-        <img src={logo} className="w-14 mr-2" alt="logo" />
+        <img src={logo} className="w-14 mr-2" alt="logo"onClick={() => {
+          openMain();
+          closeSettings();
+        }}/>
         <h1 className="text-lg md:text-3xl font-bold"> CIRCLEZ </h1>
       </div>
       <div>
-      <button className='mr-5 p-3 pl-5 pr-5 bg-blue-400 rounded-md text-white font-bold text-sm hover:bg-blue-500'>
+      {/* <button          
+      
+          onClick={() => {
+            openSettings();
+            closeMain();
+          }}className='mr-5 p-3 pl-5 pr-5 bg-blue-400 rounded-md text-white font-bold text-sm hover:bg-blue-500'>
         Settings
-      </button>
+        
+
+      </button> */}
         <button 
           onClick={() => {
             openLogin();
@@ -127,6 +147,15 @@ function App() {
           </Element>
           </main>
         }
+
+        {settings &&
+          <main className='mt-32'>
+            <Element name="settings" className="section">
+              <Settings closeSettings={closeSettings} />
+          </Element>
+          </main>
+        }
+
       {main && 
         <main className='mt-32'>
           <Element name="messages" className="section">

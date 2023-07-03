@@ -82,6 +82,11 @@ const Messages = () => {
     }
   };
 
+  const denyUser = (userId) => {
+    console.log('userId:', userId);
+    remove(ref(db, `Archived/${userId}`));
+  };
+
   return (
     <div className="border-b pb-10">
       <div>
@@ -169,6 +174,8 @@ const Messages = () => {
                           <div className="flex justify-center">
                             <button
                               className="bg-zinc-500 hover:bg-zinc-400 text-white py-2 px-4 rounded text-sm"
+                              onClick={() => denyUser(userId)}
+
                             >
                               Delete
                             </button>
