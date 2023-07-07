@@ -92,12 +92,15 @@ const ManageBlogs = () => {
 
 
   return (
-    <div className="border-b pb-10">
+    <div className="border-b pb-10 h-80 overflow-y-auto">
       <div>
-      <div className="mt-5 mx-10">
-          <div className="flex justify-between items-center mb-4">
-            <h1 className="text-2xl font-bold">Manage Blogs</h1>
-            <div className="flex">
+      {/* <div className="sticky top-0 bg-white py-2 pt-5 pb-5 border-b  ">
+        <h1 className="text-left text-2xl font-bold ml-10">Manage Blogs</h1>
+      </div> */}
+      <div className=" z-2 ">
+        <div className="flex justify-between items-center mb-10 sticky top-0 py-5 pb-5 bg-white border-b">
+          <h1 className="text-left text-2xl font-bold ml-5">Manage Blogs</h1>
+            <div className="flex mr-5">
               <button
                 className={`mr-4 font-bold text-lg ${
                   selectedTab === 'current' ? 'text-blue-500' : 'text-gray-500'
@@ -117,6 +120,7 @@ const ManageBlogs = () => {
             </div>
           </div>
       {selectedTab === 'current' && (
+        <div className='mx-10'>
           <table className="min-w-full bg-white border border-gray-200">
             <thead>
               <tr>
@@ -150,9 +154,11 @@ const ManageBlogs = () => {
             })}
             </tbody>
           </table>
+        </div>
       )}
 
       {selectedTab === 'archive' && (
+        <div className='mx-10'>
         <table className="min-w-full bg-white border border-gray-200">
             <thead>
               <tr>
@@ -190,6 +196,7 @@ const ManageBlogs = () => {
             })}
             </tbody>
           </table>
+        </div>
           )}
         </div>
       </div>

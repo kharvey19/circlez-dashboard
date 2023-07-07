@@ -104,7 +104,7 @@ function App() {
   return (
     <div className="App" onClick={handleMenuClose}>
 {!login && (
-  <header className={`navbar pl-10 text-black bg-white md:mr-10 fixed top-0 w-screen b ${showShadow ? 'opaque' : ''}`} style={{ borderBottom: '1px solid grey'}}>
+  <header className={`navbar pl-10 text-black bg-white md:mr-10 fixed top-0 z-10 w-screen b ${showShadow ? 'opaque' : ''}`} style={{ borderBottom: '1px solid grey'}}>
     <div className="flex justify-between items-center w-screen">
       <div className="flex items-center">
         <img src={logo} className="w-14 mr-2" alt="logo"onClick={() => {

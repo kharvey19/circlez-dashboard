@@ -83,12 +83,12 @@ const VerifyBlogUsers = () => {
   };
 
   return (
-    <div className="border-b pb-10">
+    <div className="border-b pb-10 h-96 overflow-y-auto">
       <div>
-        <div className="mt-5 mx-10">
-          <div className="flex justify-between items-center mb-4">
-            <h1 className="text-2xl font-bold">Verify Blog Users</h1>
-            <div className="flex">
+      <div className="z-2 ">
+        <div className="flex justify-between items-center mb-10 sticky top-0 py-5 pb-5 bg-white border-b">
+          <h1 className="text-left text-2xl font-bold ml-5 ">Verify Blog Users</h1>
+            <div className="flex mr-5">
               <button
                 className={`mr-4 font-bold text-lg ${
                   selectedTab === 'register' ? 'text-blue-500' : 'text-gray-500'
@@ -107,7 +107,9 @@ const VerifyBlogUsers = () => {
               </button>
             </div>
           </div>
+  
           {selectedTab === 'register' && (
+            <div className='mx-10'>
             <table className="min-w-full bg-white border border-gray-300">
               <thead>
                 <tr>
@@ -151,8 +153,10 @@ const VerifyBlogUsers = () => {
                   })}
               </tbody>
             </table>
+            </div>
           )}
           {selectedTab === 'verified' && (
+            <div className='mx-10'> 
             <table className="min-w-full bg-white border border-gray-300">
               <thead>
                 <tr>
@@ -190,6 +194,7 @@ const VerifyBlogUsers = () => {
                   })}
               </tbody>
             </table>
+            </div>
           )}
         </div>
       </div>
