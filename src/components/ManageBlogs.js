@@ -99,8 +99,8 @@ const ManageBlogs = () => {
       </div> */}
       <div className=" z-2 ">
         <div className="flex justify-between items-center mb-10 sticky top-0 py-5 pb-5 bg-white border-b">
-          <h1 className="text-left text-2xl font-bold ml-5">Manage Blogs</h1>
-            <div className="flex mr-5">
+          <h1 className="text-left text-2xl font-bold ml-10">Manage Blogs</h1>
+            <div className="flex mr-10">
               <button
                 className={`mr-4 font-bold text-lg ${
                   selectedTab === 'current' ? 'text-blue-500' : 'text-gray-500'

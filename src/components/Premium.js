@@ -23,9 +23,9 @@ const Premium = () => {
       <div>
       <div className="z-2 ">
         <div className="flex justify-between items-center mb-5 sticky top-0 py-5 pb-5 bg-white border-b ">
-          <h1 className="text-left text-2xl font-bold ml-5 ">Premium</h1>
+          <h1 className="text-left text-2xl font-bold ml-10 ">Premium</h1>
         </div>
-        <div className="mx-5">
+        <div className="mx-10">
           <table className="min-w-full bg-white border border-gray-300 m">
             <thead>
               <tr>
